@@ -24,16 +24,16 @@ app.get('/hello/:name', (req, res) => {
     var name = req.params.name
     res.send(`Hello ${name}`)
 })
+app.get("/info", (req, res) => {
+    res.sendFile('info.html', { root: path.join(__dirname, 'public') })
+})
 
 // Users route
 app.use('/bowling', BowlingRouter)
 
 // connect to database
-
 app.listen(process.env.PORT || 3000, () => {
     console.log(`Server Started on Port ${process.env.PORT || 3000}`)
 });
 
-
-
-// app.listen(3000, () => console.log('Server Started on Port 3000'));
+module.exports = app
