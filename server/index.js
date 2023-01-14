@@ -25,7 +25,7 @@ app.get('/info', (req, res) => {
     res.sendFile('info.html', { root: path.join(__dirname, 'public') })
 })
 
-app.get('/:name', (req, res) => {
+app.get('/hello/:name', (req, res) => {
     var name = req.params.name
     res.send(`Hello ${name}`)
 })
@@ -38,16 +38,12 @@ app.use('/bowling', BowlingRouter)
 // connectDB();
 
 
-
-
 app.listen(process.env.PORT || 3000, () => {
     bowlingConnection()
     console.log(`Server Started on Port ${process.env.PORT || 3000}`)
 });
 
 module.exports = app
-
-
 
 
 // app.listen(3000, () => console.log('Server Started on Port 3000'));
