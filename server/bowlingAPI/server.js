@@ -1,6 +1,8 @@
 require('dotenv').config()
 const express = require('express')
 const BowlingRouter = express.Router()
+let cors = require('cors')
+BowlingRouter.use(cors())
 // middleware
 const mongoose = require('mongoose')
 mongoose.set("strictQuery", false);
