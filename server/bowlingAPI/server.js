@@ -1,8 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const BowlingRouter = express.Router()
-let cors = require('cors')
-BowlingRouter.use(cors())
+
 // middleware
 const mongoose = require('mongoose')
 mongoose.set("strictQuery", false);
@@ -30,19 +29,15 @@ BowlingRouter.get('/hello', (req, res) => {
 // Users route
 BowlingRouter.use('/user', UserRouter)
 
-
 // connect to database
+connectDB();
 
-const bowlingConnection = () => {
-    connectDB();
+const db = mongoose.connection
+db.on('error', (error) => { console.error(error) })
+db.once('open', () => {
+    console.log("Connected to bowling database");
+})
 
-    const db = mongoose.connection
-    db.on('error', (error) => { console.error(error) })
-    db.once('open', () => {
-        console.log("Connected to bowling database");
-        // BowlingRouter.listen(process.env.PORT || 3000, () => console.log(`Server Started on Port ${process.env.PORT || 3000}`));
-    })
-}
 
-module.exports = { bowlingConnection: bowlingConnection, BowlingRouter: BowlingRouter }
+module.exports = BowlingRouter
 // app.listen(3000, () => console.log('Server Started on Port 3000'));

@@ -3,13 +3,13 @@ const express = require('express')
 const app = express()
 let cors = require('cors')
 const path = require('path')
+app.use(cors())
 // middleware
 const mongoose = require('mongoose')
 mongoose.set("strictQuery", false);
-const { bowlingConnection, BowlingRouter } = require('./bowlingAPI/server')
+const BowlingRouter = require('./bowlingAPI/server')
 
 // INIT
-app.use(cors())
 // bodyParser
 const bodyParser = require('express').json;
 app.use(bodyParser())
@@ -28,13 +28,9 @@ app.get('/hello/:name', (req, res) => {
 // Users route
 app.use('/bowling', BowlingRouter)
 
-
 // connect to database
-// connectDB();
-
 
 app.listen(process.env.PORT || 3000, () => {
-    bowlingConnection()
     console.log(`Server Started on Port ${process.env.PORT || 3000}`)
 });
 
